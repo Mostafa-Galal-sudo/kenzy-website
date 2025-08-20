@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إلى كنزي علي 💖</title>
+<!-- Tailwind CSS for modern, responsive styling -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Swiper.js CSS for the image slider -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<style>
+/* Custom Font Inter for a clean look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* General body styling and custom heart cursor */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Video background styling */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the entire viewport */
+    z-index: -1;
+}
+
+/* Custom cursor */
+#custom-cursor {
+    position: fixed;
+    top: -5px;
+    left: -5px;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease-out;
+    transform: translate(-50%, -50%);
+    fill: #E91E63; /* New color */
+}
+#custom-cursor.clicked {
+    fill: #880E4F; /* New color */
+}
+
+/* Loading screen styling */
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+}
+.pulsing-heart {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes pulse {
+    0%, 100% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1); opacity: 1;}
+}
+
+/* Main title glow effect - UPDATED COLORS FOR WHITE TEXT WITH PURPLE GLOW */
+#mainTitle {
+    font-size: 48px;
+    color: #FFFFFF; /* Pure white for maximum contrast */
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    0% {text-shadow: 0 0 10px #D8BFD8;} /* Soft pink glow start */
+    100% {text-shadow: 0 0 25px #8B008B, 0 0 50px #4B0082;} /* Stronger, darker purple glow */
+}
+
+/* Common button styles */
+.button {
+    background-color: #E91E63; /* Richer, more elegant pink */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 20px 10px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+}
+.button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.6);
+}
+.button .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    animation: ripple 0.6s linear;
+    transform: scale(0);
+}
+@keyframes ripple {
+    to {transform: scale(4); opacity: 0;}
+}
+
+/* Hidden message styles with typing effect */
+.hidden-message {
+    display: none;
+    margin: 20px auto;
+    font-size: 24px;
+    color: #FFFFFF; /* Changed to white */
+    max-width: 80%;
+    transition: all 0.5s;
+    text-shadow: 0 0 10px #8B008B; /* Dark purple glow */
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+.bouncing {
+    animation: bounceIn 0.8s forwards;
+}
+@keyframes bounceIn {
+    0% {transform: scale(0.3); opacity: 0;}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1); opacity: 1;}
+}
+
+/* Days Counter and Timer Animation - UPDATED COLORS FOR WHITE TEXT WITH PURPLE GLOW */
+#daysCounter, #timerDisplay {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FFFFFF; /* White text */
+    margin: 20px auto;
+    text-shadow: 0 0 10px #8B008B; /* Dark purple glow */
+    animation: counterGlow 2s infinite alternate;
+}
+@keyframes counterGlow {
+    0% {text-shadow: 0 0 10px #D8BFD8;} /* Soft pink glow start */
+    100% {text-shadow: 0 0 20px #8B008B, 0 0 30px #4B0082;} /* Stronger, darker purple glow */
+}
+
+/* Swiper Slider Specific Styling */
+.swiper {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Adjusted to fit within the slide area */
+    display: block;
+    cursor: pointer;
+}
+.swiper-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    white-space: nowrap;
+}
+.swiper-slide:hover .swiper-caption {
+    opacity: 1;
+}
+.swiper-button-prev, .swiper-button-next {
+    color: #E91E63 !important; /* New color */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    transition: background-color 0.3s;
+}
+.swiper-button-prev:hover, .swiper-button-next:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.swiper-pagination-bullet-active {
+    background-color: #E91E63 !important; /* New color */
+}
+
+/* Popup and overlay styles */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 900;
+}
+.date-popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.5);
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+    text-align: center;
+    animation: popupIn 0.5s forwards;
+}
+@keyframes popupIn {
+    to {transform: translate(-50%,-50%) scale(1); opacity: 1; }
+}
+.date-popup h2 {
+    color: #4B0082; /* Deep purple for the question */
+}
+
+/* Lightbox for image viewing */
+.lightbox-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+.lightbox-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.7); /* New color */
+}
+
+/* Background Effects */
+.emoji-rain {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+.emoji-rain span {
+    position: absolute;
+    top: -50px;
+    font-size: 2em;
+    animation: fall 10s linear infinite;
+}
+@keyframes fall {
+    to {transform: translateY(100vh) rotate(360deg);}
+}
+.confetti-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1001;
+}
+.confetti {
+    width: 10px;
+    height: 10px;
+    background-color: #E91E63; /* New color */
+    position: absolute;
+    animation: confetti-fall 2s linear forwards;
+}
+@keyframes confetti-fall {
+    to {transform: translateY(100vh);}
+}
+
+/* Music Player Styles */
+#music-controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 8px 12px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2000;
+    display: none; /* Initially hidden */
+}
+#music-controls button {
+    background: none;
+    border: none;
+    color: #E91E63; /* New color */
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+#music-controls button:hover {
+    transform: scale(1.1);
+}
+#volume-slider {
+    width: 80px;
+    margin-right: 10px;
+}
+/* Surpise page styling */
+#surpriseContent {
+    background: linear-gradient(45deg, #ff99cc, #ff66b2, #ffccf2);
+    display: none; /* Initially hide the surprise content */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: fixed; /* Fix the position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+}
+#surpriseContent h1 {
+    font-size: 5rem;
+    color: white;
+    text-shadow: 0 0 20px #8B008B; /* New color */
+    animation: neonGlow 2s infinite alternate;
+}
+@keyframes neonGlow {
+    from { text-shadow: 0 0 10px #fff, 0 0 20px #8B008B, 0 0 30px #8B008B, 0 0 40px #4B0082; }
+    to { text-shadow: 0 0 20px #fff, 0 0 30px #8B008B, 0 0 40px #8B008B, 0 0 50px #4B0082; }
+}
+#surpriseContent video {
+    max-width: 90%;
+    max-height: 70vh;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    margin-top: 30px;
+}
+/* Main content styling */
+#mainContent {
+    display: none; /* Initially hide the main content */
+    min-height: 100vh;
+    padding: 20px;
+}
+</style>
+</head>
+<body class="bg-gradient-to-b from-pink-100 to-white">
+
+<!-- Video background for the main content -->
+<video id="background-video" autoplay muted loop>
+    <source src="background.mp4" type="video/mp4">
+    المتصفح بتاعك لا يدعم تشغيل الفيديو.
+</video>
+
+<!-- Custom cursor SVG -->
+<div id="custom-cursor">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+</div>
+
+<!-- Audio for background music -->
+<audio id="bgMusic" loop src="music.mp3"></audio>
+
+<!-- Music Controls -->
+<div id="music-controls">
+    <button id="playPauseBtn">▶️</button>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+</div>
+
+<!-- Loading screen that prompts user to start -->
+<div id="loadingScreen" class="bg-gradient-to-b from-pink-100 to-white flex-col justify-center items-center h-screen w-screen">
+    <h1 class="text-pink-500 text-4xl sm:text-6xl animate-pulse">جاهزة يا قمري 💖</h1>
+    <button id="startBtn" class="button">مخصوص لكنوزتي</button>
+</div>
+
+<!-- Main content of the page, initially hidden -->
+<div id="mainContent" class="min-h-screen p-5">
+    <h1 id="mainTitle" class="text-pink-500 font-bold text-4xl sm:text-6xl my-8">أغلى كنوزه في حياتي 💖</h1>
+    
+    <!-- Days Counter, re-added here -->
+    <h2 id="daysCounter" class="text-pink-500 font-bold text-2xl my-4"></h2>
+    
+    <!-- Timer to count down to the surprise -->
+    <div id="timerDisplay" class="text-pink-500 text-3xl font-bold my-4">2:00</div>
+
+    <!-- Buttons to trigger the date questions -->
+    <button class="button" onclick="openDatePopup('message1', 20, 8, 'امتى كان أول يوم اتكلمنا فيه؟ 💌')">
+        <span>اقرأ رسالتي الأولى 💌</span>
+    </button>
+    <button class="button" onclick="openDatePopup('message2', 3, 9, 'امتى كانت أول مرة قولتيلي فيها بحبك؟ 🌸')">
+        <span>مفاجأة ثانية 🌸</span>
+    </button>
+    
+    <!-- Hidden paragraphs to display messages after correct date is entered -->
+    <p class="hidden-message text-pink-600 font-bold" id="message1"></p>
+    <p class="hidden-message text-pink-600 font-bold" id="message2"></p>
+    
+    <!-- Swiper container for the image slider -->
+    <div class="swiper mySwiper">
+        <!-- Swiper slides wrapper -->
+        <div class="swiper-wrapper">
+            <!-- First slide with a placeholder image -->
+            <div class="swiper-slide">
+                <img src="1st.jpg" alt="صورة 1">
+                <div class="swiper-caption">
+                    صورة لأول يوم اتكلمنا فيه
+                </div>
+            </div>
+            <!-- Second slide with a placeholder image -->
+            <div class="swiper-slide">
+                <img src="2nd.jpg" alt="صورة 2">
+                <div class="swiper-caption">
+                    صورة لأول رد من شخصيتك المجنونة
+                </div>
+            </div>
+            <!-- Third slide with a placeholder image -->
+            <div class="swiper-slide">
+                <img src="3rd.jpg" alt="صورة 3">
+                <div class="swiper-caption">
+                    من أحلى لحظات حياتي معاكي
+                </div>
+            </div>
+            <!-- Fourth slide with a placeholder image -->
+            <div class="swiper-slide">
+                <img src="4th.jpg" alt="صورة 4">
+                <div class="swiper-caption">
+                    الاسكرين ده لحد متكون في الحقيقه ان شاءالله
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation (Next/Prev) buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Popup for date question, initially hidden -->
+    <div class="overlay hidden" id="overlay"></div>
+    <div class="date-popup hidden bg-pink-100 rounded-3xl shadow-xl p-8" id="datePopup">
+        <button class="float-right bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center -mt-4 -mr-4" onclick="closePopup()">X</button>
+        <h2 id="popupQuestion" class="text-pink-600 font-bold text-xl mb-4"></h2>
+        <select id="daySelect" class="p-2 rounded-lg border-2 border-pink-500"></select>
+        <select id="monthSelect" class="p-2 rounded-lg border-2 border-pink-500"></select>
+        <br>
+        <button onclick="checkDate()" class="button mt-4">
+            <span>تأكيد</span>
+        </button>
+        <p id="errorMsg" class="text-red-500 mt-2 text-sm hidden">اليوم أو الشهر خاطئ 😢 جربي مرة تانية!</p>
+    </div>
+
+    <!-- Full-screen lightbox for viewing images, initially hidden -->
+    <div id="lightboxOverlay" class="lightbox-overlay hidden" onclick="closeLightbox()">
+        <img id="lightboxImg">
+    </div>
+</div>
+
+<!-- Surprise video content, initially hidden and fixed to cover the screen -->
+<div id="surpriseContent">
+    <h1>المفاجأة! 😍</h1>
+    <video id="surpriseVideo" width="640" height="360" controls autoplay>
+        <source src="video.mp4" type="video/mp4">
+        المتصفح بتاعك لا يدعم تشغيل الفيديو.
+    </video>
+    <!-- زر العودة الجديد -->
+    <button id="backBtn" class="button mt-4" style="display: none;">
+        <span>عودة للصفحة الرئيسية 💖</span>
+    </button>
+</div>
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Get all necessary DOM elements
+    const startBtn = document.getElementById('startBtn');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainContent = document.getElementById('mainContent');
+    const surpriseContent = document.getElementById('surpriseContent');
+    const surpriseVideo = document.getElementById('surpriseVideo');
+    const backBtn = document.getElementById('backBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const daysCounter = document.getElementById('daysCounter');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const customCursor = document.getElementById('custom-cursor');
+    const musicControls = document.getElementById('music-controls');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.getElementById('volume-slider');
+    
+    // Function to start the main page and the countdown
+    startBtn.addEventListener('click', () => {
+        bgMusic.play().catch(e => console.error("Background music failed to play:", e));
+        loadingScreen.style.display = 'none';
+        mainContent.style.display = 'block';
+        musicControls.style.display = 'flex';
+        updateDaysCounter();
+        startTimer(120);
+    });
+
+    // Update the days counter with a count-up animation
+    function updateDaysCounter() {
+        const totalDays = 365;
+        let currentDay = 0;
+        const countInterval = setInterval(() => {
+            daysCounter.innerText = `حبنا بدأ من ${currentDay} يوم 💖`;
+            if (currentDay >= totalDays) {
+                clearInterval(countInterval);
+            }
+            currentDay++;
+        }, 50);
+    }
+    
+    // Function to start the countdown timer
+    let timerInterval;
+    function startTimer(duration) {
+        let timer = duration, minutes, seconds;
+        timerInterval = setInterval(() => {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            timerDisplay.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                showSurprise();
+            }
+        }, 1000);
+    }
+
+    // Function to show the surprise video and hide the main content
+    function showSurprise() {
+        mainContent.style.display = 'none';
+        surpriseContent.style.display = 'flex';
+        backBtn.style.display = 'block'; // إظهار زر العودة
+        // Ensure the video plays and is in full screen mode
+        surpriseVideo.play();
+        if (surpriseVideo.requestFullscreen) {
+            surpriseVideo.requestFullscreen();
+        } else if (surpriseVideo.webkitRequestFullscreen) { /* Safari */
+            surpriseVideo.webkitRequestFullscreen();
+        } else if (surpriseVideo.msRequestFullscreen) { /* IE11 */
+            surpriseVideo.msRequestFullscreen();
+        }
+    }
+
+    // Function to go back from the surprise video page
+    backBtn.addEventListener('click', () => {
+        surpriseContent.style.display = 'none';
+        mainContent.style.display = 'block';
+        surpriseVideo.pause(); // إيقاف تشغيل الفيديو
+        surpriseVideo.currentTime = 0; // إعادة الفيديو إلى البداية
+        // إزالة وضع ملء الشاشة إذا كان مفعلاً
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    });
+
+    // Button ripple effect
+    document.querySelectorAll('.button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const circle = document.createElement('span');
+            const diameter = Math.max(this.clientWidth, this.clientHeight);
+            const radius = diameter / 2;
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - this.offsetLeft - radius}px`;
+            circle.style.top = `${e.clientY - this.offsetTop - radius}px`;
+            circle.classList.add('ripple');
+            this.appendChild(circle);
+            setTimeout(() => circle.remove(), 600);
+        });
+    });
+
+    // Date popup logic
+    let currentMessage = '', correctDay = 0, correctMonth = 0, wrongCount = 0;
+    const overlay = document.getElementById('overlay');
+    const popup = document.getElementById('datePopup');
+    const errorMsg = document.getElementById('errorMsg');
+    const daySelect = document.getElementById('daySelect');
+    const monthSelect = document.getElementById('monthSelect');
+    const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    const typingSpeed = 50;
+
+    // Populate the day and month dropdown menus
+    for (let i = 1; i <= 31; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = i;
+        daySelect.appendChild(opt);
+    }
+    monthNames.forEach((m, i) => {
+        let opt = document.createElement('option');
+        opt.value = i + 1;
+        opt.innerText = m;
+        monthSelect.appendChild(opt);
+    });
+
+    // Function to open the date popup with a specific question and correct answer
+    function openDatePopup(messageId, day, month, question) {
+        currentMessage = messageId;
+        correctDay = day;
+        correctMonth = month;
+        wrongCount = 0;
+        document.getElementById('popupQuestion').innerText = question;
+        daySelect.value = 1;
+        monthSelect.value = 1;
+        errorMsg.style.display = 'none';
+        overlay.classList.remove('hidden');
+        popup.classList.remove('hidden');
+    }
+
+    // Typing effect for the messages with a bouncy animation
+    function typeMessage(id, text) {
+        const elem = document.getElementById(id);
+        elem.innerHTML = '';
+        elem.style.display = 'block';
+        elem.classList.add('bouncing');
+        let i = 0;
+        const typeInterval = setInterval(() => {
+            if (i < text.length) {
+                elem.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typeInterval);
+            }
+        }, typingSpeed);
+    }
+
+    // Function to check if the entered date is correct
+    function checkDate() {
+        const selectedDay = parseInt(daySelect.value);
+        const selectedMonth = parseInt(monthSelect.value);
+
+        if (selectedDay === correctDay && selectedMonth === correctMonth) {
+            closePopup();
+            let msgText = '';
+        if (currentMessage === 'message1') {
+            msgText = 'أنا بحبك جدا يا قمورتي وإن شاء الله ربنا يجمعنا في بيت واحد عن قريب 💕';
+        }
+        if (currentMessage === 'message2') {
+            msgText = 'الأمنية الوحيدة اللي بتمناها هي انتي 😍';
+        }
+
+        // بعد تحديد msgText، نضيف التنسيق
+        const elem = document.getElementById(currentMessage);
+        elem.innerHTML = msgText;
+        elem.style.display = 'block';
+        elem.style.color = '#ffffff'; // اللون الأبيض
+        elem.style.textShadow = '0 0 10px #b19cd9, 0 0 20px #a259ff, 0 0 30px #b19cd9'; // توهج بنفسجي
+        elem.classList.add('bouncing');
+            typeMessage(currentMessage, msgText);
+            startEmojiRain();
+            startConfetti();
+        } else {
+            errorMsg.style.display = 'block';
+            wrongCount++;
+            if (wrongCount === 1) {
+                if (currentMessage === 'message1') {
+                    errorMsg.innerText = 'تلميح 💖: كان في شهر أغسطس!';
+                } else if (currentMessage === 'message2') {
+                    errorMsg.innerText = 'تلميح 💖: كان في شهر سبتمبر!';
+                }
+            } else {
+                errorMsg.innerText = 'اليوم أو الشهر خاطئ 😢 جربي مرة تانية!';
+            }
+        }
+    }
+
+    // Close the date popup
+    function closePopup() {
+        overlay.classList.add('hidden');
+        popup.classList.add('hidden');
+    }
+
+    // Emoji rain and confetti animations
+    function startEmojiRain() {
+        const emojis = ['�', '✨', '🌸', '💌', '⭐'];
+        const rainContainer = document.createElement('div');
+        rainContainer.classList.add('emoji-rain');
+        document.body.appendChild(rainContainer);
+        for (let i = 0; i < 50; i++) {
+            const emoji = document.createElement('span');
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            const size = Math.random() * 2 + 1;
+            emoji.style.left = `${Math.random() * 100}%`;
+            emoji.style.fontSize = `${size}em`;
+            emoji.style.animationDelay = `${Math.random() * 5}s`;
+            emoji.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            rainContainer.appendChild(emoji);
+        }
+        setTimeout(() => rainContainer.remove(), 10000);
+    }
+
+    function startConfetti() {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.classList.add('confetti-container');
+        document.body.appendChild(confettiContainer);
+        const colors = ['#E91E63', '#FFFFFF', '#8B008B', '#4B0082'];
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = `${Math.random() * 2}s`;
+            confettiContainer.appendChild(confetti);
+        }
+        setTimeout(() => confettiContainer.remove(), 2000);
+    }
+
+    // Music Player controls
+    let isPlaying = false;
+    playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            playPauseBtn.innerText = '▶️';
+        } else {
+            bgMusic.play().catch(e => console.error("Music play failed:", e));
+            playPauseBtn.innerText = '⏸️';
+        }
+        isPlaying = !isPlaying;
+    });
+    volumeSlider.addEventListener('input', () => {
+        bgMusic.volume = volumeSlider.value;
+    });
+
+    // Swiper.js Initialization
+    // New code to set up the slider
+    var swiper = new Swiper(".mySwiper", {
+      // Optional parameters
+      direction: "horizontal", // The default is horizontal
+      loop: true, // Enable infinite loop
+      // Autoplay
+      autoplay: {
+        delay: 5000, // 5 seconds
+        disableOnInteraction: false, // Continue autoplay after user interaction
+      },
+      // If we need pagination (the dots)
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      // If we need navigation buttons (the arrows)
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    // Lightbox image viewer logic
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    // Select all images inside the swiper slides and add a click listener
+    document.querySelectorAll('.swiper-slide img').forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lightboxImg.src = img.src;
+            lightboxOverlay.style.display = 'flex';
+        });
+    });
+    function closeLightbox() {
+        lightboxOverlay.style.display = 'none';
+    }
+
+    // Custom cursor logic
+    window.addEventListener('mousemove', (e) => {
+        customCursor.style.left = `${e.clientX}px`;
+        customCursor.style.top = `${e.clientY}px`;
+    });
+    window.addEventListener('mousedown', () => {
+        customCursor.classList.add('clicked');
+    });
+    window.addEventListener('mouseup', () => {
+        customCursor.classList.remove('clicked');
+    });
+
+</script>
+</body>
+</html>
