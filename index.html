@@ -3,30 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Interactive Love Letter</title>
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@400;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+	<title>Interactive Love Letter v2</title>
+	<!-- Updated Fonts for a slightly different V2 header look -->
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@400;500;700&family=Great+Vibes&family=Marcellus+SC&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Lucy+Said+Ok+Personal+Use+Italic&display=swap" rel="stylesheet">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 	<style>
 		:root {
-			--bg-color: #fef5f5;
-			--envelope-color: #fff1f1;
-			--flap-color: #f8d8d8;
-			--paper-color: #fffcf7;
+			/* V2 Colors: Slightly deeper pinks and more pronounced contrasts */
+			--bg-color: #fcebeb; /* Lighter background */
+			--envelope-color: #ffe6e6; /* Envelope base */
+			--flap-color: #f7dada; /* Flap color */
+			--paper-color: #fff9f9; /* Letter paper */
 			--text-color: #4a2f2f;
-			--header-color: #7b4b4b;
-			--accent-color: #ffb7c5;
-			--accent-text-color: #5a2f2f;
-			--message-bg-color: #ffccd5;
-			--glow-color: #ff99ac;
-			--shadow-color: rgba(0, 0, 0, 0.1);
+			--header-color: #6a3a3a; /* Darker header color */
+			--accent-color: #ff99aa; /* Primary accent */
+			--accent-text-color: #4a2f2f;
+			--message-bg-color: #ffc4d0; /* Message/button hover */
+			--glow-color: #ff7799;
+			--shadow-color: rgba(0, 0, 0, 0.15);
 		}
 
 		body {
 			font-family: 'Inter', sans-serif;
-			background: linear-gradient(135deg, var(--bg-color), #fff0f3);
+			background: linear-gradient(135deg, var(--bg-color), #ffe6e8);
 			background-size: 200% 200%;
 			animation: gradient-flow 15s ease infinite;
 			display: flex;
@@ -42,21 +44,22 @@
 		}
 
 		.dark-mode {
-			--bg-color: #1c1c3a;
-			--envelope-color: #2a2a5c;
-			--flap-color: #3c3c7a;
-			--paper-color: #35356e;
-			--text-color: #e0e0ff;
-			--header-color: #d0c8ff;
-			--accent-color: #9b89ff;
+			/* V2 Dark Mode: Deep purples and blues */
+			--bg-color: #1a1a38;
+			--envelope-color: #2b2b5d;
+			--flap-color: #3f3f85;
+			--paper-color: #33336c;
+			--text-color: #e8e8ff;
+			--header-color: #d8c8ff;
+			--accent-color: #a08cff;
 			--accent-text-color: #ffffff;
-			--message-bg-color: #a79cff;
-			--glow-color: #b8a6ff;
-			--shadow-color: rgba(0, 0, 0, 0.3);
+			--message-bg-color: #b3a3ff;
+			--glow-color: #c4b0ff;
+			--shadow-color: rgba(0, 0, 0, 0.4);
 		}
 
 		.dark-mode body {
-			background: linear-gradient(135deg, var(--bg-color), #2a2a5c);
+			background: linear-gradient(135deg, var(--bg-color), #2b2b5d);
 		}
 
 		.envelope-container {
@@ -75,7 +78,7 @@
 		}
 
 		.envelope {
-			background: linear-gradient(180deg, var(--envelope-color), #f0e6e6);
+			background: linear-gradient(180deg, var(--envelope-color), #f9eaea);
 			position: absolute;
 			width: 100%;
 			height: 100%;
@@ -95,7 +98,7 @@
 			left: 0;
 			width: 100%;
 			height: 55%;
-			background: linear-gradient(180deg, var(--flap-color), #e0c0c0);
+			background: linear-gradient(180deg, var(--flap-color), #f0d0d0);
 			border-radius: 2rem 2rem 0 0;
 			transform-origin: top;
 			transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -113,7 +116,7 @@
 			width: 92%;
 			height: 92%;
 			transform: translate(-50%, -50%) rotateY(180deg);
-			background: linear-gradient(180deg, var(--paper-color), #fff9e6);
+			background: linear-gradient(180deg, var(--paper-color), #fffafa);
 			border-radius: 1.5rem;
 			box-shadow: 0 8px 25px var(--shadow-color);
 			padding: 2.5rem;
@@ -134,27 +137,27 @@
 			position: absolute;
 			top: 1rem;
 			right: 1rem;
-			width: 2rem;
-			height: 2rem;
+			width: 2.2rem;
+			height: 2.2rem;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			background-color: var(--accent-color);
 			color: var(--accent-text-color);
 			border-radius: 50%;
-			font-size: 1.2rem;
+			font-size: 1.4rem;
 			cursor: pointer;
 			transition: transform 0.3s ease, background-color 0.3s ease;
 		}
 
 		.close-icon:hover {
-			transform: scale(1.15);
+			transform: scale(1.15) rotate(5deg);
 			background-color: var(--message-bg-color);
 		}
 
 		.letter-content {
 			font-family: 'Lucy Said Ok Personal Use Italic', cursive;
-			line-height: 2.4;
+			line-height: 2.2;
 			font-size: 1.1rem;
 			color: var(--text-color);
 			text-align: left;
@@ -164,15 +167,19 @@
 		}
 
 		.letter-content h1 {
-			font-family: 'Dancing Script', cursive;
+			font-family: 'Marcellus SC', serif; /* New V2 Font for heading */
 			font-size: 2.5rem;
 			color: var(--header-color);
 			margin-bottom: 1.5rem;
 			text-align: center;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			padding-bottom: 0.5rem;
+			border-bottom: 2px solid var(--flap-color);
 		}
 
 		.letter-content p {
-			margin-bottom: 1.75rem;
+			margin-bottom: 1.5rem;
 		}
 
 		.letter-content .typing-cursor {
@@ -191,16 +198,18 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			z-index: 4;
-			padding: 0.8rem 2rem;
+			padding: 0.8rem 2.2rem;
 			background: linear-gradient(45deg, var(--accent-color), var(--message-bg-color));
 			color: var(--accent-text-color);
 			border: none;
 			border-radius: 9999px;
-			font-weight: 600;
-			font-size: 1rem;
+			font-weight: 700;
+			font-size: 1.1rem;
 			cursor: pointer;
 			transition: all 0.3s ease;
-			box-shadow: 0 5px 10px var(--shadow-color);
+			box-shadow: 0 6px 15px var(--shadow-color);
+			text-transform: uppercase;
+			letter-spacing: 1px;
 		}
 
 		.open-button:hover {
@@ -222,189 +231,104 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 1rem;
-			margin-top: 1.5rem;
+			gap: 0.75rem;
+			margin-top: 2rem;
 		}
 
 		.letter-buttons .btn {
-			padding: 0.6rem 1.2rem;
+			padding: 0.7rem 1.4rem;
 			background: linear-gradient(45deg, var(--accent-color), var(--message-bg-color));
 			color: var(--accent-text-color);
 			border: none;
 			border-radius: 9999px;
 			font-weight: 600;
-			font-size: 0.9rem;
+			font-size: 0.95rem;
 			cursor: pointer;
 			transition: all 0.3s ease;
-			box-shadow: 0 4px 8px var(--shadow-color);
+			box-shadow: 0 4px 10px var(--shadow-color);
 			white-space: nowrap;
+			text-transform: capitalize;
 		}
 
 		.letter-buttons .btn:hover {
 			transform: translateY(-2px);
-			background: linear-gradient(45deg, var(--message-bg-color), var(--accent-color));
+			box-shadow: 0 6px 12px var(--shadow-color);
 		}
 
+		/* --- Reply Form Modal Styles --- */
 		.reply-form {
 			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background: linear-gradient(180deg, var(--paper-color), #fff9e6);
-			padding: 2.5rem;
-			border-radius: 1.5rem;
-			box-shadow: 0 12px 30px var(--shadow-color);
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 99; /* Higher than the envelope */
 			opacity: 0;
-			pointer-events: none;
-			transition: all 0.4s ease;
-			width: 90%;
-			max-width: 450px;
-			z-index: 20;
+			visibility: hidden;
+			transition: opacity 0.3s ease, visibility 0.3s ease;
 		}
 
 		.reply-form.visible {
 			opacity: 1;
-			pointer-events: all;
-			transform: translate(-50%, -50%) scale(1);
+			visibility: visible;
+		}
+
+		/* Style the form card inside the modal */
+		.reply-form form {
+			background-color: var(--paper-color);
+			padding: 2.5rem;
+			border-radius: 1.5rem;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			max-width: 400px;
+			width: 90%;
+			display: flex;
+			flex-direction: column;
+			color: var(--text-color);
+			font-family: 'Inter', sans-serif;
 		}
 
 		.reply-form label {
-			display: block;
-			color: var(--text-color);
-			font-weight: 600;
-			margin-bottom: 0.75rem;
-			font-size: 1.1rem;
+			font-weight: 500;
+			margin-top: 0.75rem;
+			margin-bottom: 0.25rem;
+			text-align: left;
+			font-size: 0.95rem;
 		}
 
-		.reply-form input,
+		.reply-form input[type="text"],
+		.reply-form input[type="tel"],
 		.reply-form textarea {
-			width: 100%;
-			padding: 0.85rem;
-			margin-bottom: 1.25rem;
+			padding: 0.75rem;
 			border: 1px solid var(--flap-color);
-			border-radius: 0.75rem;
+			border-radius: 0.5rem;
 			background-color: var(--envelope-color);
 			color: var(--text-color);
-			font-size: 1rem;
-			transition: border-color 0.3s ease;
+			transition: border-color 0.3s;
 		}
 
 		.reply-form input:focus,
 		.reply-form textarea:focus {
-			border-color: var(--accent-color);
 			outline: none;
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px var(--accent-color);
+		}
+
+		.reply-form textarea {
+			resize: vertical;
 		}
 
 		.reply-form .btn-group {
 			display: flex;
 			justify-content: space-between;
-			gap: 1.5rem;
+			gap: 1rem;
+			margin-top: 1.5rem;
 		}
+		/* --- End Reply Form Modal Styles --- */
 
-		.theme-button {
-			position: fixed;
-			top: 1.5rem;
-			right: 1.5rem;
-			z-index: 100;
-			padding: 0.6rem;
-			background: linear-gradient(45deg, var(--accent-color), var(--message-bg-color));
-			color: var(--accent-text-color);
-			border-radius: 50%;
-			cursor: pointer;
-			box-shadow: 0 3px 6px var(--shadow-color);
-			transition: all 0.3s ease;
-		}
-
-		.theme-button:hover {
-			transform: scale(1.15);
-		}
-
-		.video-modal {
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%) scale(0.7);
-			background: linear-gradient(180deg, var(--paper-color), #fff9e6);
-			padding: 2rem;
-			border-radius: 1.5rem;
-			box-shadow: 0 12px 30px var(--shadow-color);
-			opacity: 0;
-			pointer-events: none;
-			transition: all 0.4s ease;
-			width: 90%;
-			max-width: 600px;
-			z-index: 25;
-		}
-
-		.video-modal.visible {
-			opacity: 1;
-			pointer-events: all;
-			transform: translate(-50%, -50%) scale(1);
-		}
-
-		.video-modal iframe {
-			width: 100%;
-			height: 315px;
-			border-radius: 1rem;
-			border: none;
-		}
-
-		.video-modal .close-video {
-			position: absolute;
-			top: 1rem;
-			right: 1rem;
-			width: 2rem;
-			height: 2rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: var(--accent-color);
-			color: var(--accent-text-color);
-			border-radius: 50%;
-			font-size: 1.2rem;
-			cursor: pointer;
-			transition: transform 0.3s ease, background-color 0.3s ease;
-		}
-
-		.video-modal .close-video:hover {
-			transform: scale(1.15);
-			background-color: var(--message-bg-color);
-		}
-
-		.heart-fly-up {
-			position: absolute;
-			bottom: 0;
-			left: 50%;
-			transform: translateX(-50%);
-			animation: fly-up 4s ease-in-out forwards;
-			font-size: 1.8rem;
-			color: var(--accent-color);
-			opacity: 0;
-			z-index: 5;
-			filter: drop-shadow(0 0 5px var(--glow-color));
-		}
-
-		@keyframes fly-up {
-			0% { transform: translate(-50%, 0) scale(0.5); opacity: 1; }
-			50% { transform: translate(-50%, -150px) scale(1.3); opacity: 1; }
-			100% { transform: translate(-50%, -300px) scale(1); opacity: 0; }
-		}
-
-		.confetti {
-			position: absolute;
-			width: 12px;
-			height: 12px;
-			border-radius: 50%;
-			animation: fall 3s ease-out forwards;
-			opacity: 0;
-			z-index: 6;
-			box-shadow: 0 2px 4px var(--shadow-color);
-		}
-
-		@keyframes fall {
-			0% { transform: translateY(-10vh) rotateZ(0); opacity: 1; }
-			100% { transform: translateY(100vh) rotateZ(1080deg); opacity: 0; }
-		}
 
 		@keyframes gradient-flow {
 			0% { background-position: 0% 50%; }
@@ -412,53 +336,14 @@
 			100% { background-position: 0% 50%; }
 		}
 
-		.dark-mode body::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: radial-gradient(circle at 10% 20%, #ffffff33 2px, transparent 2px),
-						radial-gradient(circle at 30% 50%, #ffffff33 2px, transparent 2px),
-						radial-gradient(circle at 60% 30%, #ffffff33 2px, transparent 2px),
-						radial-gradient(circle at 80% 70%, #ffffff33 2px, transparent 2px),
-						radial-gradient(circle at 40% 80%, #ffffff33 2px, transparent 2px);
-			background-size: 100% 100%;
-			opacity: 0.6;
-			animation: twinkle 20s linear infinite;
-		}
-
-		@keyframes twinkle {
-			0% { opacity: 0.6; }
-			50% { opacity: 0.3; }
-			100% { opacity: 0.6; }
-		}
-
-		.sparkle {
-			position: absolute;
-			width: 6px;
-			height: 6px;
-			background: radial-gradient(circle, #ffffffaa, transparent);
-			border-radius: 50%;
-			animation: sparkle 2s ease-in-out infinite;
-			z-index: 1;
-		}
-
-		@keyframes sparkle {
-			0% { transform: scale(0.5); opacity: 0.8; }
-			50% { transform: scale(1.2); opacity: 0.3; }
-			100% { transform: scale(0.5); opacity: 0.8; }
-		}
-
 		@media (max-width: 640px) {
 			.envelope-container {
 				max-width: 95%;
-				height: 450px;
+				height: 400px; /* Slightly smaller envelope on mobile */
 			}
 
 			.letter-content h1 {
-				font-size: 2.2rem;
+				font-size: 2rem;
 			}
 
 			.letter-content {
@@ -472,24 +357,38 @@
 				gap: 0.5rem;
 			}
 
-			.reply-form,
-			.video-modal {
+			.reply-form form {
 				padding: 1.5rem;
-				max-width: 90%;
+				max-width: 95%;
 			}
+		}
 
-			.video-modal iframe {
-				height: 200px;
-			}
+		/* Sparkle animation for dark mode */
+		@keyframes sparkle-glow {
+			0%, 100% { opacity: 0.4; transform: scale(0.5); }
+			50% { opacity: 1; transform: scale(1.2); }
+		}
+
+		.sparkle {
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			background-color: var(--glow-color);
+			border-radius: 50%;
+			box-shadow: 0 0 8px var(--glow-color);
+			animation: sparkle-glow 2s ease-in-out infinite alternate;
+			pointer-events: none;
+			z-index: 5;
 		}
 	</style>
 </head>
 <body>
 	<audio id="open-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-fast-magic-sweep-2333.mp3" preload="auto"></audio>
 
-	<button id="theme-toggle" class="theme-button">🌙</button>
+	<button id="theme-toggle" class="theme-button fixed top-4 right-4 z-50 p-2 rounded-full bg-[var(--envelope-color)] text-[var(--text-color)] shadow-md transition-colors hover:bg-[var(--flap-color)]">🌙</button>
 
-	<div class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--header-color)] mb-10 font-['Dancing_Script'] tracking-wide">
+	<!-- Main Title uses a decorative font -->
+	<div class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--header-color)] mb-10 font-['Marcellus_SC'] tracking-wider">
 		A Special Message For You
 	</div>
 
@@ -507,16 +406,17 @@
 					<p id="letter-body-2"></p>
                     <p id="letter-body-3"></p>
                     <p id="letter-body-4"></p>
-					<p id="letter-signature-2"></p>
-                    <p id="letter-signature-3"></p>
+					<!-- signature2 and signature3 added to the letter structure -->
+					<p id="letter-signature-2" class="mt-6 text-xl font-['Dancing_Script']"></p>
+                    <p id="letter-signature-3" class="text-2xl font-['Dancing_Script']"></p>
+					
 					<!-- Button container -->
 					<div class="letter-buttons">
 						<div class="flex justify-center gap-2 sm:gap-4 flex-wrap">
 							<button id="inspire-me-btn" class="btn">Get a Quote 💌</button>
-							<button id="download-pdf-btn" class="btn">Save as PDF 📄</button>
 							<button id="reply-btn" class="btn">Reply ❤️</button>
+							<button id="download-pdf-btn" class="btn">Save as PDF 📄</button>
 						</div>
-						<button id="play-video-btn" class="btn">Watch Our Moment 🎥</button>
 					</div>
 					<p id="quote-display" class="mt-6 text-base italic text-[var(--text-color)]"></p>
 				</div>
@@ -525,6 +425,7 @@
 		</div>
 	</div>
 
+	<!-- Reply Form (Modal) -->
 	<div id="reply-form" class="reply-form">
 		<form id="reply-submit-form">
 			<h2 class="text-2xl font-bold mb-6 text-[var(--header-color)] font-['Dancing_Script']">Write Your Reply</h2>
@@ -541,20 +442,16 @@
 		</form>
 	</div>
 
-	<div id="video-modal" class="video-modal">
-		<span id="close-video" class="close-video">&times;</span>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/XHjxj78AYc0?si=9a9HyqTjU-OHHok9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-	</div>
-
 	<script>
+        // V2 Letter Content
         const letterText = {
-            heading: "My Dearest Kenzy,",
-            body1: "From the moment I met you, my life has been filled with a light I never knew was missing. Your kindness, your laughter, your very presence—it’s all a gift I cherish every single day.",
-            body2: "This past year has been nothing short of beautiful, filled with joy, laughter, and memories that I will treasure forever. On the 3rd of September, 2024, at exactly 4:17 AM, the most wonderful word in history was spoken—the moment that changed everything for me, the moment I truly felt complete.",
-            body3: "Since then, every sunrise feels brighter, every night feels warmer, and every second holds more meaning, simply because I have you. Thank you for being the greatest blessing of my life.",
-            body4: "With every day that passes, my love for you only grows deeper. You are the most beautiful part of my world, and I can't wait to see what our future holds.",
-            signature2: "[Mostafa]" ,
-            signature3: "[Your signature]"
+            heading: "My Beloved Kenzy,",
+            body1: "Today marks a year and one month since the very first 'I love you' was spoken between us. That moment was the spark that changed everything, the beginning of a journey that has filled my life with love, laughter, and meaning.",
+            body2: "In this time, you have grown so much—not just as the person I fell deeply in love with, but also as someone chasing her dreams. I want to say congratulations, my love, for starting your college journey. I am beyond proud of you and the hard work, dedication, and passion you carry within you.",
+            body3: "Every step you take inspires me. Every success of yours feels like my own victory, because seeing you shine is the greatest joy in my life. You are not only my partner but also my motivation, my safe place, and my reason to always strive to be better.",
+            body4: "As we celebrate this milestone together, know that my heart belongs to you more deeply than ever. I can’t wait to witness every dream of yours come true, and I promise to always be by your side, cheering for you, loving you endlessly.",
+            signature2: "Forever yours,",
+            signature3: "Mostafa"
         };
 
 
@@ -597,7 +494,6 @@
 		const letter = document.getElementById('letter');
 		const downloadBtn = document.getElementById('download-pdf-btn');
 		const replyBtn = document.getElementById('reply-btn');
-		const playVideoBtn = document.getElementById('play-video-btn');
 		const closeIcon = document.getElementById('close-icon');
 		const replyForm = document.getElementById('reply-form');
 		const replySubmitForm = document.getElementById('reply-submit-form');
@@ -605,8 +501,6 @@
 		const themeToggleBtn = document.getElementById('theme-toggle');
 		const inspireMeBtn = document.getElementById('inspire-me-btn');
 		const quoteDisplay = document.getElementById('quote-display');
-		const videoModal = document.getElementById('video-modal');
-		const closeVideoBtn = document.getElementById('close-video');
 		const openSound = document.getElementById('open-sound');
 
 		let typingFinished = false;
@@ -636,6 +530,16 @@
 
 		async function startTypingAnimation() {
 			letter.classList.add('visible');
+			// Clear all content before starting the new animation
+			document.getElementById('letter-heading').textContent = '';
+			document.getElementById('letter-body-1').textContent = '';
+			document.getElementById('letter-body-2').textContent = '';
+			document.getElementById('letter-body-3').textContent = '';
+			document.getElementById('letter-body-4').textContent = '';
+			document.getElementById('letter-signature-2').textContent = '';
+			document.getElementById('letter-signature-3').textContent = '';
+
+			// Start typing the new V2 message
 			await typeWriter('letter-heading', letterText.heading, 40);
 			await typeWriter('letter-body-1', letterText.body1, 15);
 			await typeWriter('letter-body-2', letterText.body2, 15);
@@ -650,8 +554,11 @@
 			document.getElementById('letter-heading').textContent = '';
 			document.getElementById('letter-body-1').textContent = '';
 			document.getElementById('letter-body-2').textContent = '';
+			document.getElementById('letter-body-3').textContent = '';
+			document.getElementById('letter-body-4').textContent = '';
 			document.getElementById('letter-signature-2').textContent = '';
 			document.getElementById('letter-signature-3').textContent = '';
+			quoteDisplay.textContent = ''; // Clear quote on close
 		}
 
 		function createHearts() {
@@ -672,7 +579,7 @@
 		}
 
 		function generateConfetti() {
-			const colors = ['#ff6b6b', '#ff8e53', '#ffcc5c', '#88d8b0', '#6b7280', '#a78bfa'];
+			const colors = ['#ff6b6b', '#ff8e53', '#ffcc5c', '#88d8b0', '#a78bfa', '#ff99aa'];
 			const numConfetti = 60;
 			const container = document.body;
 
@@ -710,19 +617,22 @@
 				bottom: 30px;
 				left: 50%;
 				transform: translateX(-50%);
-				background: linear-gradient(45deg, var(--paper-color), #fff9e6);
+				background: var(--accent-color);
 				padding: 1.25rem 2.5rem;
 				border-radius: 1.5rem;
 				box-shadow: 0 6px 15px var(--shadow-color);
 				z-index: 100;
 				font-size: 1.1rem;
-				color: var(--text-color);
+				color: var(--accent-text-color);
 				text-align: center;
 				white-space: pre-wrap;
+				font-weight: 500;
 			`;
 			document.body.appendChild(messageBox);
 			setTimeout(() => messageBox.remove(), 3500);
 		}
+
+		// --- Event Listeners ---
 
 		toggleBtn.addEventListener('click', function() {
 			envelopeContainer.classList.add('opened');
@@ -757,18 +667,16 @@
 			const elementClone = element.cloneNode(true);
 
 			// Remove the buttons and the quote display from the cloned element
-			const buttonsToRemove = elementClone.querySelector('.letter-buttons');
-			if (buttonsToRemove) {
-				buttonsToRemove.remove();
-			}
-			const quoteToRemove = elementClone.querySelector('#quote-display');
-			if (quoteToRemove) {
-				quoteToRemove.remove();
-			}
+			elementClone.querySelector('.letter-buttons')?.remove();
+			elementClone.querySelector('#quote-display')?.remove();
+			
+			// Ensure signature lines have clean paragraph structure
+			elementClone.querySelector('#letter-signature-2').classList.remove('mt-6');
+			elementClone.querySelector('#letter-signature-3').classList.remove('text-2xl');
 
 			const opt = {
 				margin: 0.75,
-				filename: 'love-letter.pdf',
+				filename: 'love-letter-v2.pdf',
 				image: { type: 'jpeg', quality: 0.98 },
 				html2canvas: { scale: 3 },
 				jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -779,26 +687,12 @@
 		});
 
 		replyBtn.addEventListener('click', function() {
+			// This line adds the 'visible' class, which now correctly triggers the modal display
 			replyForm.classList.add('visible');
-			videoModal.classList.remove('visible');
 		});
 
 		cancelReplyBtn.addEventListener('click', function() {
 			replyForm.classList.remove('visible');
-		});
-
-		playVideoBtn.addEventListener('click', function() {
-			if (!letter.classList.contains('visible') || !typingFinished) {
-				showMessageBox("Please wait for the letter to fully open.");
-				return;
-			}
-			videoModal.classList.add('visible');
-			replyForm.classList.remove('visible');
-			generateConfetti();
-		});
-
-		closeVideoBtn.addEventListener('click', function() {
-			videoModal.classList.remove('visible');
 		});
 
 		replySubmitForm.addEventListener('submit', function(e) {
@@ -812,12 +706,18 @@
 			window.open(whatsappUrl, '_blank');
 			replyForm.classList.remove('visible');
 			replySubmitForm.reset();
+			showMessageBox("Reply sent via WhatsApp!");
 		});
 
 		themeToggleBtn.addEventListener('click', () => {
 			document.body.classList.toggle('dark-mode');
 			const isDarkMode = document.body.classList.contains('dark-mode');
 			themeToggleBtn.textContent = isDarkMode ? '☀️' : '🌙';
+			// Recreate sparkles for theme transition effect
+			document.querySelectorAll('.sparkle').forEach(s => s.remove());
+			if (isDarkMode) {
+				createSparkles();
+			}
 		});
 
 		inspireMeBtn.addEventListener('click', () => {
@@ -827,7 +727,10 @@
 		});
 
 		setDynamicDate();
-		createSparkles();
+		// Initial sparkles only if not in dark mode by default
+		if (!document.body.classList.contains('dark-mode')) {
+			createSparkles();
+		}
 	</script>
 </body>
 </html>
